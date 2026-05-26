@@ -1,13 +1,10 @@
-// ===== Header Files =====
 #include <iostream>
 #include <string>
 #include <fstream>
 #include <cstdlib>
 #include <ctime>
-
 using namespace std;
-
-// ===== Function Prototypes =====
+//PROTOTYPES
 void encrypt();
 void decrypt();
 void caesarBruteForce();
@@ -18,10 +15,9 @@ void fileDecrypt();
 void generateKeyFile();
 void generateWordlist();
 
-// ===== Main Function =====
 int main()
 {
-    srand(time(0));   // Initialize random generator
+    srand(time(0));   // FOR RANDOM SHIFTKEY GENERATION
 
     int choice = 0;
 
@@ -43,7 +39,7 @@ int main()
         cout << "\nEnter your choice: ";
         cin >> choice;
 
-        // Handle invalid input like @ or letters
+        // HANDLE Program crash
         if(cin.fail())
         {
             cin.clear();
@@ -52,7 +48,6 @@ int main()
             continue;
         }
 
-        // ===== Menu Options =====
         switch(choice)
         {
             case 1:
@@ -101,7 +96,6 @@ int main()
 
     return 0;
 }
-// ===== Encrypt Function =====
 void encrypt()
 {
     string text;
@@ -109,16 +103,16 @@ void encrypt()
     int shiftKey;
 
     cin.ignore(1000, '\n');
-
-    // Take input text
     cout << "\nEnter text to encrypt: ";
     getline(cin, text);
-
-    // Take shift key
+if (text.empty()) 
+    {
+        cout << "Input text cannot be empty! Returning to menu\n";
+        return; 
+    }
     cout << "Enter shift key (1-25): ";
     cin >> shiftKey;
-
-    // Validate key
+    // KEY CHECK 
     if(cin.fail() || shiftKey < 1 || shiftKey > 25)
     {
         cin.clear();
@@ -130,7 +124,6 @@ void encrypt()
     // Encrypt text character by character
     for(int i = 0; i < text.length(); i++)
     {
-        // Uppercase letters
         if(text[i] >= 'A' && text[i] <= 'Z')
         {
             encrypted += (text[i] - 'A' + shiftKey) % 26 + 'A';
@@ -141,8 +134,6 @@ void encrypt()
         {
             encrypted += (text[i] - 'a' + shiftKey) % 26 + 'a';
         }
-
-        // Symbols and spaces remain same
         else
         {
             encrypted += text[i];
@@ -154,19 +145,19 @@ void encrypt()
     cout << "Encrypted Text: " << encrypted << endl;
 }
 
-
-// ===== Decrypt Function =====
 void decrypt()
 {
     string text;
     string decrypted = "";
     int shiftKey;
-
     cin.ignore(1000, '\n');
-
-    // Take encrypted text
     cout << "\nEnter encrypted text: ";
     getline(cin, text);
+    if (text.empty()) 
+    {
+        cout << "Input text cannot be empty! Returning to menu\n";
+        return; 
+    }
 
     // Take shift key
     cout << "Enter shift key (1-25): ";
@@ -180,23 +171,16 @@ void decrypt()
         cout << "Invalid shift key!\n";
         return;
     }
-
-    // Decrypt text character by character
     for(int i = 0; i < text.length(); i++)
     {
-        // Uppercase letters
         if(text[i] >= 'A' && text[i] <= 'Z')
         {
             decrypted += (text[i] - 'A' - shiftKey + 26) % 26 + 'A';
         }
-
-        // Lowercase letters
         else if(text[i] >= 'a' && text[i] <= 'z')
         {
             decrypted += (text[i] - 'a' - shiftKey + 26) % 26 + 'a';
         }
-
-        // Symbols remain same
         else
         {
             decrypted += text[i];
@@ -206,21 +190,21 @@ void decrypt()
     cout << "\nDecrypted Text: " << decrypted << endl;
 }
 
-
-// ===== Caesar Brute Force =====
 void caesarBruteForce()
 {
     string text;
     string decrypted = "";
-
     cin.ignore(1000, '\n');
-
     cout << "\nEnter encrypted text: ";
     getline(cin, text);
-
+    if (text.empty()) 
+    {
+        cout << "Input text cannot be empty! Returning to menu\n";
+        return;
+    }
     cout << "\n===== All Possible Decryptions =====\n";
 
-    // Try all 25 keys
+    // MAKE ALL KEYS (1-25)
     for(int key = 1; key <= 25; key++)
     {
         decrypted = "";
@@ -244,22 +228,20 @@ void caesarBruteForce()
         cout << "Key " << key << " : " << decrypted << endl;
     }
 }
-// ===== Random Key Encrypt =====
 void randomKeyEncrypt()
 {
     string text;
     string encrypted = "";
     int key;
-
     cin.ignore(1000, '\n');
-
     cout << "\nEnter text to encrypt: ";
     getline(cin, text);
-
-    // Generate random key 1-25
+if (text.empty()) 
+    {
+        cout << "Input text cannot be empty! Returning to menu\n";
+        return; 
+    }
     key = rand() % 25 + 1;
-
-    // Encrypt text
     for(int i = 0; i < text.length(); i++)
     {
         if(text[i] >= 'A' && text[i] <= 'Z')
@@ -281,23 +263,21 @@ void randomKeyEncrypt()
     cout << "Save this key for decryption.\n";
 }
 
-
-// ===== Random Key Decrypt =====
 void randomKeyDecrypt()
 {
     string text;
     string decrypted = "";
     int key;
-
     cin.ignore(1000, '\n');
-
     cout << "\nEnter encrypted text: ";
     getline(cin, text);
-
+    if (text.empty()) 
+    {
+        cout << "Input text cannot be empty! Returning to menu\n";
+        return; 
+    }
     cout << "Enter saved random key: ";
     cin >> key;
-
-    // Validate key
     if(cin.fail() || key < 1 || key > 25)
     {
         cin.clear();
@@ -305,8 +285,6 @@ void randomKeyDecrypt()
         cout << "Invalid key!\n";
         return;
     }
-
-    // Decrypt text
     for(int i = 0; i < text.length(); i++)
     {
         if(text[i] >= 'A' && text[i] <= 'Z')
@@ -325,32 +303,20 @@ void randomKeyDecrypt()
 
     cout << "\nDecrypted Text: " << decrypted << endl;
 }
-
-
-// ===== Generate Key File =====
 void generateKeyFile()
 {
     string filename;
     int key;
-
     cin.ignore(1000, '\n');
-
     cout << "\nEnter filename to save key: ";
     getline(cin, filename);
-
-    // Random key generation
     key = rand() % 25 + 1;
-
     ofstream fout(filename.c_str());
-
-    // File check
     if(!fout.is_open())
     {
         cout << "Error creating file!\n";
         return;
     }
-
-    // Save key in file
     fout << "===== Caesar Cipher Key File =====\n";
     fout << "Secret Key : " << key << endl;
     fout << "Keep this key safe.\n";
@@ -360,7 +326,6 @@ void generateKeyFile()
     cout << "\nKey file created successfully.\n";
     cout << "Generated Key: " << key << endl;
 }
-// ===== File Encrypt =====
 void fileEncrypt()
 {
     string inputFile;
@@ -374,14 +339,10 @@ void fileEncrypt()
     // Take filenames
     cout << "\nEnter input filename: ";
     getline(cin, inputFile);
-
     cout << "Enter output filename: ";
     getline(cin, outputFile);
-
     cout << "Enter shift key (1-25): ";
     cin >> shiftKey;
-
-    // Validate key
     if(cin.fail() || shiftKey < 1 || shiftKey > 25)
     {
         cin.clear();
@@ -389,19 +350,13 @@ void fileEncrypt()
         cout << "Invalid shift key!\n";
         return;
     }
-
-    // Open input file
     ifstream fin(inputFile.c_str());
-
     if(!fin.is_open())
     {
         cout << "Cannot open input file!\n";
         return;
     }
-
-    // Create output file
     ofstream fout(outputFile.c_str());
-
     if(!fout.is_open())
     {
         cout << "Cannot create output file!\n";
@@ -441,9 +396,6 @@ void fileEncrypt()
     cout << "\nFile encrypted successfully.\n";
     cout << "Output saved in: " << outputFile << endl;
 }
-
-
-// ===== File Decrypt =====
 void fileDecrypt()
 {
     string inputFile;
@@ -457,14 +409,10 @@ void fileDecrypt()
     // Take filenames
     cout << "\nEnter encrypted filename: ";
     getline(cin, inputFile);
-
     cout << "Enter output filename: ";
     getline(cin, outputFile);
-
     cout << "Enter shift key (1-25): ";
     cin >> shiftKey;
-
-    // Validate key
     if(cin.fail() || shiftKey < 1 || shiftKey > 25)
     {
         cin.clear();
@@ -472,7 +420,6 @@ void fileDecrypt()
         cout << "Invalid shift key!\n";
         return;
     }
-
     // Open encrypted file
     ifstream fin(inputFile.c_str());
 
@@ -516,15 +463,12 @@ void fileDecrypt()
 
         fout << decrypted << endl;
     }
-
-    // Close files
     fin.close();
     fout.close();
 
     cout << "\nFile decrypted successfully.\n";
     cout << "Output saved in: " << outputFile << endl;
 }
-// ===== Generate Custom Wordlist =====
 void generateWordlist()
 {
     string name, dob, pet, age, filename;
@@ -554,7 +498,7 @@ void generateWordlist()
         return;
     }
 
-    // Generate wordlist combinations
+    // Generate wordlist combinations (BASICS! AUTOMATION IS NOT DONE YET LEAVING IT FOR FUTURE INSHALLAH!)
     fout << name << endl;
     fout << name << "123" << endl;
     fout << name << "786" << endl;
@@ -565,9 +509,7 @@ void generateWordlist()
     fout << pet << age << endl;
     fout << name << dob << pet << endl;
     fout << name << age << pet << endl;
-
     fout.close();
-
     cout << "\nWordlist generated successfully.\n";
     cout << "Saved in: " << filename << endl;
 }

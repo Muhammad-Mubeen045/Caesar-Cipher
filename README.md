@@ -4,7 +4,7 @@ A C++ command-line application for text and file encryption/decryption using the
 
 > Caesar Cipher is considered outdated in today's world, but it remains one of the best starting points for beginners. Every expert once started with the basics — always take small steps as a warmup before the big leap.
 
----
+----
 
 ## 📋 Table of Contents
 

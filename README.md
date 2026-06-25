@@ -239,16 +239,6 @@ Caeser-Cipher/
 - The Brute Force option prints all 25 results — look for the readable one.
 - Key files are not stored by the program — remember your shift key to decrypt later.
 
----
-
-## 👥 Contributors
-
-| Name | Role |
-|------|------|
-| [Muhammad Mubeen](https://github.com/Muhammad-Mubeen045) | Developer |
-| [Badar ul Nisa](https://www.linkedin.com/feed#) | Contributor |
-| [Sharjeel Ahmad](https://www.linkedin.com/feed#) | Contributor |
-
----
+----
 
 *Start simple. Think deep. Build secure.* 🔐
